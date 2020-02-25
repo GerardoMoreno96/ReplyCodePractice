@@ -5,7 +5,7 @@ class Terrain:
         self._height = numbers[1]
         self._cust_offices = numbers[2]
         self._reply_offices = numbers[3]
-        self._terrain = []
+        self.terrain = []
         print("Width: {}\
         \nHeight: {}\
         \nCustomer Offices: {}\
@@ -14,11 +14,15 @@ class Terrain:
         # Create the flat map
         for terrain_line in contents[self._cust_offices+1:]:
             for c in terrain_line.replace("\n", ""):
-                self._terrain.append(c)
+                self.terrain.append(c)
 
-    def map_2d_to_flat(self, row, col):
+    def map_2d_to_flat(row, col):
         return row * self._width + col
-        
+
+    def insert(self, item):
+        idx = map_2d_to_flat(item.row, item.column)
+        self.terrain[idx] = item.points
+
 if __name__ == '__main__':
     path = '/Users/michaliskaseris/Documents/dev/reply-challenge/reply-2019/input1.txt'
     f = open(path, "r")
