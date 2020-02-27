@@ -16,12 +16,13 @@ class Terrain:
             for c in terrain_line.replace("\n", ""):
                 self.terrain.append(c)
 
-    def map_2d_to_flat(row, col):
+    def map_2d_to_flat(self,row, col):
         return row * self._width + col
 
-    def insert(self, item):
-        idx = map_2d_to_flat(item.row, item.column)
-        self.terrain[idx] = item.points
+    def insert(self,item):
+        for customer in item:
+            idx = self.map_2d_to_flat(int(customer.row), int(customer.column))
+            self.terrain[idx] = int(customer.points)
 
 class Customer:
     def __init__(self, column, row, points):
@@ -41,10 +42,13 @@ class Customer:
             customers.append(Customer(fields[0],fields[1],fields[2]))
             count+=1
             if(count>int(c)):
-                break
+                return customers
 
 if __name__ == '__main__':
-    path = '/Users/michaliskaseris/Documents/dev/reply-challenge/reply-2019/input1.txt'
+    path = 'input.txt'
     f = open(path, "r")
     lines = f.readlines()
     terrain = Terrain(lines)
+    customers = Customer.get_customers()
+    terrain.insert(customers)
+    print("t")
