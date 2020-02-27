@@ -44,11 +44,18 @@ class Customer:
             if(count>int(c)):
                 return customers
 
+def changeCharsToPoints(terrain):
+    characters = {'#':-99999,'~':-800,'*':-200,'+':-150,'X':-120,'_':-100,'H':-70,'T':-50}
+    for i in range(len(terrain.terrain)):
+        terrain.terrain[i] = characters[terrain.terrain[i]]
+    return terrain
+
 if __name__ == '__main__':
     path = 'input.txt'
     f = open(path, "r")
     lines = f.readlines()
     terrain = Terrain(lines)
+    terrain = changeCharsToPoints(terrain)    
     customers = Customer.get_customers()
     terrain.insert(customers)
     print("t")
